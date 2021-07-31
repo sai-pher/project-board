@@ -16,8 +16,8 @@ dotenv.config();
  */
 
 const app = express();
-const corsOptions = {
-    origin: "https://saipher-project-board-ui.herokuapp.com"
+const corsOptions: cors.CorsOptions = {
+    origin: ["https://saipher-project-board-ui.herokuapp.com"]
 };
 
 
@@ -25,7 +25,7 @@ const corsOptions = {
  *  App Configuration
  */
 
-app.use(helmet())
+app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({
