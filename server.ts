@@ -1,13 +1,31 @@
-const express = require("express");
-var cors = require('cors')
+/**
+ * Required External Modules
+ */
+
+import * as dotenv from "dotenv"
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+
 const db = require("./app/models");
 
-const app = express();
+dotenv.config();
 
+/**
+ * App Variables
+ */
+
+const app = express();
 const corsOptions = {
     origin: "https://saipher-project-board-ui.herokuapp.com"
-  };
+};
 
+
+/**
+ *  App Configuration
+ */
+
+app.use(helmet())
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -21,7 +39,7 @@ db.mongoose.connect(
         useUnifiedTopology: true
     })
     .then(() => console.log("DB connection successful"))
-    .catch(err => {
+    .catch((err: any) => {
         console.error("DB connection failed: ", err);
         process.exit();
     }
@@ -29,6 +47,10 @@ db.mongoose.connect(
 
 require("./app/routes/project.routes")(app);
 
+
+/**
+ * Server Activation
+ */
 
 const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, () => {
