@@ -2,21 +2,18 @@
  * Required External Modules
  */
 
-import * as dotenv from "dotenv"
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
 
 const db = require("./app/models");
-
-dotenv.config();
 
 /**
  * App Variables
  */
 
 const app = express();
-const corsOptions: cors.CorsOptions = {
+const corsOptions = {
     origin: ["https://saipher-project-board-ui.herokuapp.com"]
 };
 
@@ -39,7 +36,7 @@ db.mongoose.connect(
         useUnifiedTopology: true
     })
     .then(() => console.log("DB connection successful"))
-    .catch((err: any) => {
+    .catch((err) => {
         console.error("DB connection failed: ", err);
         process.exit();
     }

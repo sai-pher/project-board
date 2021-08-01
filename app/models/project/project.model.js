@@ -1,4 +1,4 @@
-module.exports = (mongoose: any) => {
+module.exports = (mongoose) => {
     const projectSchema = mongoose.Schema(
         {
             course: String,
