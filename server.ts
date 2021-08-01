@@ -2,18 +2,32 @@
  * Required External Modules
  */
 
-const express = require("express");
-const cors = require("cors");
-const helmet = require("helmet");
+import * as dotenv from "dotenv"
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+const { auth } = require("express-openid-connect");
 
-const db = require("./app/models");
+
+dotenv.config();
 
 /**
  * App Variables
  */
 
+ const db = require("./app/models");
+
+ const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'mWay4clAZH-w8N6gE1GOaANhQ8tJfq5Vct-sN5LtxSi-nNa58QPF5bBR2HVKBxrT',
+    baseURL: 'https://saipher-project-board-server.herokuapp.com',
+    clientID: 'sPecX4gTemuaYEi5fVaOrbg3BoTJBal4',
+    issuerBaseURL: 'https://dev-zfjr6qzc.us.auth0.com'
+  };
+
 const app = express();
-const corsOptions = {
+const corsOptions: cors.CorsOptions = {
     origin: ["https://saipher-project-board-ui.herokuapp.com"]
 };
 
@@ -22,6 +36,7 @@ const corsOptions = {
  *  App Configuration
  */
 
+app.use(auth(config));
 app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -36,7 +51,7 @@ db.mongoose.connect(
         useUnifiedTopology: true
     })
     .then(() => console.log("DB connection successful"))
-    .catch((err) => {
+    .catch((err: any) => {
         console.error("DB connection failed: ", err);
         process.exit();
     }

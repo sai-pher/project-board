@@ -1,6 +1,6 @@
-const dbConfig = require("../config/db.config.js");
+const dbConfig = require("../config/db.config");
 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 mongoose.Promise = global.Promise;
 
 const project = require("./project/project.model");

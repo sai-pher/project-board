@@ -1,11 +1,11 @@
-module.exports = (app) => {
+module.exports = (app: any) => {
     const projects = require("../controllers/project.controller");
   
     var router = require("express").Router();
   
     router.post("/create", projects.create);
 
-    router.get("/armed", (req, res) => res.json({message: "Project board armed"}));
+    router.get("/armed", (req: any, res: any) => res.json({message: "Project board armed"}));
   
     router.get("/", projects.findAll);
   
